@@ -1,0 +1,24 @@
+﻿@page "/data/binding"
+@inherits DataBindingBase
+
+<h3>DataBinding</h3>
+
+<b>Name with salutation:</b> @(Gender == "Male" ? $"Mr. {Name}" : $"Miss. {Name}")
+
+<b>Name: </b>
+<input type="text" value="@Name" @onchange="@(e=> Name = e.Value.ToString())" />
+
+<b>Name: </b>
+<input @bind="Name" @bind:event="oninput" />
+
+<br />
+<b>Change Style: </b>
+<input value="@Colour" @oninput="@(e=> BackgroundColor = "background-color:" + e.Value.ToString())" />
+
+<div @bind-style="BackgroundColor" @bind-style:event="oninput">
+    Div Style depends upon the input.
+</div>
+
+<textarea @bind="Description" @bind:event="oninput"></textarea>
+<br />
+<b>Text Count:</b> @Description.Length

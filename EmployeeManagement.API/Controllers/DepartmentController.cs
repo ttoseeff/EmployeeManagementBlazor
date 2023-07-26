@@ -29,7 +29,7 @@ namespace EmployeeManagement.API.Controllers
             }
         }
 
-        [HttpGet("{id:int}")]
+        [HttpGet("{id:Guid}")]
         public async Task<ActionResult<Department>> GetDepartment(Guid id)
         {
             try

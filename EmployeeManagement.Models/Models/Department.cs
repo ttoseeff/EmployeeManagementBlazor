@@ -10,7 +10,6 @@ namespace EmployeeManagement.Models.Models
     public class Department
     {
         public Guid DepartmentId { get; set; }
-        [Required]
         public string DepartmentName { get; set; }
     }
 }

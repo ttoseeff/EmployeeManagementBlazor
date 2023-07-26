@@ -1,0 +1,9 @@
+﻿@page "/cascading"
+
+<h3 style="@Value">ParentComponent</h3>
+<CascadingValue Value="@Value">
+<ChildComponent></ChildComponent>
+</CascadingValue>
+@code {
+    private string Value { get; set; } = "background-color: red;";
+}

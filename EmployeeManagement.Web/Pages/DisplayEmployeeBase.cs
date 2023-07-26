@@ -1,5 +1,6 @@
 ﻿using EmployeeManagement.Models.Models;
 using EmployeeManagement.Web.Services;
+using EmployeeManagement.Web.Shared;
 using Microsoft.AspNetCore.Components;
 
 namespace EmployeeManagement.Web.Pages
@@ -7,7 +8,9 @@ namespace EmployeeManagement.Web.Pages
     public class DisplayEmployeeBase : ComponentBase
     {
         [Inject]
-        public IDepartmentService departmentService { get; set; }    
+        public IDepartmentService departmentService { get; set; }
+        [Inject]
+        public IEmployeeService employeeService { get; set; }
 
         [Parameter]
         public Employee Employee { get; set; }
@@ -17,6 +20,9 @@ namespace EmployeeManagement.Web.Pages
 
         [Parameter]
         public EventCallback<bool> OnSelectionChanged { get; set; }
+
+        [Parameter]
+        public EventCallback<Guid> OnDeleteCallback { get; set; }
 
         protected bool IsSelected { get; set; }
 
@@ -34,6 +40,19 @@ namespace EmployeeManagement.Web.Pages
                 IsSelected = (bool)e.Value;
                 await OnSelectionChanged.InvokeAsync(IsSelected);
             }
+        }
+        [Parameter]
+        public ConfirmationBase DeleteConfirmation { get; set; }
+
+        public async Task Handle_Delete(Guid EmployeeId)
+        {
+            DeleteConfirmation.Show();
+            await OnDeleteCallback.InvokeAsync(EmployeeId);
+        }
+
+        public async Task DeleteEmployee(Guid EmployeeId)
+        {
+            await employeeService.DeleteEmployee(EmployeeId);
         }
 
     }

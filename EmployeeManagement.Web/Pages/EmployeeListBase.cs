@@ -1,5 +1,6 @@
 ﻿using EmployeeManagement.Models.Models;
 using EmployeeManagement.Web.Services;
+using EmployeeManagement.Web.Shared;
 using Microsoft.AspNetCore.Components;
 
 namespace EmployeeManagement.Web.Pages
@@ -13,21 +14,41 @@ namespace EmployeeManagement.Web.Pages
         protected int TotalSelectedEmployees { get; set; } = 0;
         public IEnumerable<Employee> Employees { get; set; } = Enumerable.Empty<Employee>();
 
+        protected ConfirmationBase DeleteConfirmation { get; set; }
+
+        protected DisplayEmployeeBase DisplayEmployeeRef { get; set; }
+        protected Guid CurrentEmployeeId { get; private set; }
+
         protected override async Task OnInitializedAsync()
         {
+            Employees = (await employeeService.GetEmployees()).ToList();
+        }
 
-            Employees =  (await employeeService.GetEmployees()).ToList();
+        protected async Task OnDeleteEmployee(Guid employeeId)
+        {
+            CurrentEmployeeId = employeeId;
+            //await employeeService.DeleteEmployee(employeeId);
+            //Employees = (await employeeService.GetEmployees()).ToList();
         }
 
         protected void GetTotalSelectedEmployees(bool IsSelected)
         {
-            if(IsSelected)
+            if (IsSelected)
             {
                 TotalSelectedEmployees++;
             }
             else
             {
                 TotalSelectedEmployees--;
+            }
+        }
+
+        protected async Task DeleteEmployee(bool isDeleted)
+        {
+            if (isDeleted)
+            {
+                await DisplayEmployeeRef.DeleteEmployee(CurrentEmployeeId);
+                Employees = (await employeeService.GetEmployees()).ToList();
             }
         }
 

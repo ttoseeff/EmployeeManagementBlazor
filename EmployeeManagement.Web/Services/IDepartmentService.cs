@@ -4,7 +4,7 @@ namespace EmployeeManagement.Web.Services
 {
     public interface IDepartmentService
     {
-        Task<Department> GetDepartmentById(int id);
+        Task<Department> GetDepartmentById(Guid id);
         Task<List<Department>> GetDepartments();
     }
 }

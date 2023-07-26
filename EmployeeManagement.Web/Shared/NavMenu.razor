@@ -14,18 +14,53 @@
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </div>
+
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="/data/binding" Match="NavLinkMatch.All">
                 <span class="oi oi-home" aria-hidden="true"></span> Data Binding
             </NavLink>
         </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/editemployee" Match="NavLinkMatch.All" @onclick="@(() => HandleEditEmployee("editemployee"))">
+                <span class="oi oi-home" aria-hidden="true"></span> Create
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/editemployee/2C533E47-19F0-4D73-83C1-1907BBDEFD4E" Match="NavLinkMatch.All" @onclick="@(() => HandleEditEmployee("/editemployee/2C533E47-19F0-4D73-83C1-1907BBDEFD4E"))">
+                <span class="oi oi-home" aria-hidden="true"></span> Edit
+            </NavLink>
+        </div>
+
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="/cascading" Match="NavLinkMatch.All">
+                <span class="oi oi-home" aria-hidden="true"></span> Cascading
+            </NavLink>
+        </div>
+
     </nav>
 </div>
 
 @code {
+    [Inject]
+    public NavigationManager navigationManager { get; set; }
     private bool collapseNavMenu = true;
 
     private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+
+    private void HandleEditEmployee(string url)
+    {
+        if (url.Split("/").Length > 2)
+        {
+            navigationManager.NavigateTo(url, true);
+        }
+        else
+        {
+            navigationManager.NavigateTo(url, true);
+        }
+    }
 
     private void ToggleNavMenu()
     {

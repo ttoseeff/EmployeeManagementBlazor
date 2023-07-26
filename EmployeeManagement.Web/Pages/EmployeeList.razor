@@ -26,8 +26,10 @@ else
     <div class="card-group">
         @foreach (var employee in Employees)
         {
-            <DisplayEmployee Employee="@employee" ShowFooter="@ShowFooter" OnSelectionChanged="GetTotalSelectedEmployees"></DisplayEmployee>
+            <DisplayEmployee @ref="DisplayEmployeeRef" Employee="@employee" ShowFooter="@ShowFooter" OnSelectionChanged="GetTotalSelectedEmployees" OnDeleteCallback="OnDeleteEmployee" DeleteConfirmation="DeleteConfirmation"></DisplayEmployee>
         }
     </div>
 }
+
+<Confirmation @ref="DeleteConfirmation" ConfirmationChanged="DeleteEmployee"></Confirmation>
 

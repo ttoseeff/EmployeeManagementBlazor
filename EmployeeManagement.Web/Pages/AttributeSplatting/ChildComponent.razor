@@ -1,0 +1,16 @@
+﻿<input type="text" placeholder="placeholder from child inside"  @attributes="InputParameters"   />
+
+@code {
+    [Parameter(CaptureUnmatchedValues =true)]
+    public Dictionary<string, object> InputParameters { get; set; } =
+        new Dictionary<string, object>()
+        {
+            {"required", "required"},
+            {"placeholder", "placeholder from child"},
+            {"size", "100"},
+            {"maxlength", "100"},
+
+        };
+    [Parameter]
+    public string Value { get; set; } = "Child";
+}

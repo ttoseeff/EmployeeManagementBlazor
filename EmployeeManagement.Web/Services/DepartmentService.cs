@@ -18,7 +18,7 @@ namespace EmployeeManagement.Web.Services
             return await httpClient.GetJsonAsync<List<Department>>("api/department");
         }
 
-        public async Task<Department> GetDepartmentById(int id)
+        public async Task<Department> GetDepartmentById(Guid id)
         {
             return await httpClient.GetJsonAsync<Department>($"api/department/{id}");
         }

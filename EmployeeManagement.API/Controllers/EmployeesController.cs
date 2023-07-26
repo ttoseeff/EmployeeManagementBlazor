@@ -51,12 +51,12 @@ namespace EmployeeManagement.API.Controllers
 
         [HttpPost]
         public async Task<ActionResult<Employee>>
-            CreateEmployee([FromBody] Employee employee)
+            CreateEmployee(Employee employee)
         {
             try
             {
                 if (employee == null)
-                    return BadRequest();
+                    return Ok();
 
                 // Add custom model validation error
                 var emp = await employeeRepository.GetEmployeeByEmail(employee.Email);

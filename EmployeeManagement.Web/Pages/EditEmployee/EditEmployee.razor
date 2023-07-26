@@ -1,10 +1,12 @@
 ﻿@page "/editemployee/{id}"
+@page "/editemployee"
 
 @inherits EditEmployeeBase
-
+<Confirmation ConfirmationChanged="DeleteEmployee" @ref="deleteConfiramtion"></Confirmation>
 <EditForm Model="@EditEmployeeModel" OnValidSubmit="@HandleValidSubmit">
-    <ObjectGraphDataAnnotationsValidator />
-    <h3>Edit Employee</h3>
+    <DataAnnotationsValidator />
+    @*<ObjectGraphDataAnnotationsValidator />*@
+    <h3>@PageHeader</h3>
     <hr />
     <ValidationSummary />
     <div class="form-group row mb-3">
@@ -47,18 +49,18 @@
             <ValidationMessage For="@(()=> EditEmployeeModel.ConfirmEmail)" />
         </div>
     </div>
-    @if(Departments != null)
+    @if (Departments != null)
     {
         <div class="form-group row mb-3">
             <label for="departement" class="col-sm-2 col-form-label">
-            Departments
+                Departments
             </label>
             <div class="col-sm-10">
 
                 <InputSelect @bind-Value="DepartmentId" class="form-control">
                     @foreach (var department in Departments)
                     {
-                            <option value="@department.DepartmentId">@department.DepartmentName</option>
+                        <option value="@department.DepartmentId">@department.DepartmentName</option>
                     }
                 </InputSelect>
             </div>
@@ -92,7 +94,7 @@
             <InputDate @bind-Value="EditEmployeeModel.DateOfBrith" class="form-control" />
         </div>
     </div>
-    @if(EditEmployeeModel.Department != null)
+@*    @if (EditEmployeeModel.Department != null)
     {
         <div class="form-group row mb-3">
             <label for="deptName" class="col-sm-2 col-form-label">
@@ -104,8 +106,12 @@
                 <ValidationMessage For="@(()=> EditEmployeeModel.Department.DepartmentName)" />
             </div>
         </div>
-    }
+    }*@
 
     <input type="submit" class="btn btn-primary" value="Submit" />
+    @if (EditEmployeeModel.EmployeeId != Guid.Empty)
+    {
+        <input type="button" class="btn btn-danger ms-2" value="Delete" @onclick="Delete_Click" />
+    }
 
 </EditForm>

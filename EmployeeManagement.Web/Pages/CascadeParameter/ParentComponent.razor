@@ -1,9 +1,21 @@
 ﻿@page "/cascading"
 
-<h3 style="@Value">ParentComponent</h3>
-<CascadingValue Value="@Value">
-<ChildComponent></ChildComponent>
+<h3 style="@Value">ParentComponent - @Counter</h3>
+<input type="button" class="btn btn-primary" value="Increment Counter" @onclick="IncrementCounter" />
+<CascadingValue Value="@Value" Name="ColorStyle">
+    <CascadingValue Value="BorderStyle" Name="BorderStyle">
+        <CascadingValue Value="Counter" Name="Counter">
+            <ChildComponent></ChildComponent>
+        </CascadingValue>
+    </CascadingValue>
 </CascadingValue>
 @code {
-    private string Value { get; set; } = "background-color: red;";
+    private string Value { get; set; } = "color: red;";
+    private string BorderStyle { get; set; } = "border: 1px solid green";
+    public int Counter { get; set; } = 1;
+
+    private void IncrementCounter()
+    {
+        Counter += Counter;
+    }
 }

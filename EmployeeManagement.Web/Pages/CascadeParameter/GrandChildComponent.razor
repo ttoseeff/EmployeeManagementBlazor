@@ -1,6 +1,12 @@
-﻿<h3 style="@InputSelect">GrandChildComponent</h3>
+﻿<h3 style="@InputSelect @BorderStyle">GrandChildComponent - @Counter</h3>
 
 @code {
-    [CascadingParameter]
+    [CascadingParameter(Name = "ColorStyle")]
     public string InputSelect { get; set; }
+
+    [CascadingParameter(Name = "BorderStyle")]
+    public string BorderStyle { get; set; }
+
+    [CascadingParameter(Name = "Counter")]
+    public int Counter { get; set; }
 }

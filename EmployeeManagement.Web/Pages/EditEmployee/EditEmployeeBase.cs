@@ -4,11 +4,15 @@ using EmployeeManagement.Web.Models;
 using EmployeeManagement.Web.Services;
 using EmployeeManagement.Web.Shared;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
+using System.Net;
 
 namespace EmployeeManagement.Web.Pages.EditEmployee
 {
     public class EditEmployeeBase : ComponentBase
     {
+        [CascadingParameter]
+        public Task<AuthenticationState> authenticationStateTask { get; set; }
         private Employee Employee { get; set; } = new Employee();
         public EditEmployeeModel EditEmployeeModel { get; set; } = new EditEmployeeModel();
 
@@ -35,6 +39,13 @@ namespace EmployeeManagement.Web.Pages.EditEmployee
 
         protected async override Task OnInitializedAsync()
         {
+            var authenticationState = await authenticationStateTask;
+            if (authenticationState.User.Identity != null && !authenticationState.User.Identity.IsAuthenticated)
+            {
+                string returnUrl = WebUtility.UrlEncode($"/editemployee/{Id}");
+                NavigationManager.NavigateTo($"/identity/account/login?returnUrl={returnUrl}");
+            }
+
             Guid.TryParse(Id, out Guid EmployeeId);
             if (EmployeeId != Guid.Empty)
             {
@@ -84,7 +95,7 @@ namespace EmployeeManagement.Web.Pages.EditEmployee
 
         protected async Task DeleteEmployee(bool isDeleted)
         {
-            if(isDeleted) 
+            if (isDeleted)
             {
                 await EmployeeService.DeleteEmployee(Employee.EmployeeId);
                 NavigationManager.NavigateTo("/");

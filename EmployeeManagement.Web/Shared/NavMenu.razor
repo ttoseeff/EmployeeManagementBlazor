@@ -10,47 +10,53 @@
 
 <div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
     <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
+        <AuthorizeView>
+            <Authorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                        <span class="oi oi-home" aria-hidden="true"></span> Home 
+                    </NavLink>
+                </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/data/binding" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Data Binding
-            </NavLink>
-        </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="/data/binding" Match="NavLinkMatch.All">
+                        <span class="oi oi-home" aria-hidden="true"></span> Data Binding
+                    </NavLink>
+                </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/editemployee" Match="NavLinkMatch.All" @onclick="@(() => HandleEditEmployee("editemployee"))">
-                <span class="oi oi-home" aria-hidden="true"></span> Create
-            </NavLink>
-        </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="/editemployee" Match="NavLinkMatch.All" @onclick="@(() => HandleEditEmployee("editemployee"))">
+                        <span class="oi oi-home" aria-hidden="true"></span> Create
+                    </NavLink>
+                </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/editemployee/2C533E47-19F0-4D73-83C1-1907BBDEFD4E" Match="NavLinkMatch.All" @onclick="@(() => HandleEditEmployee("/editemployee/2C533E47-19F0-4D73-83C1-1907BBDEFD4E"))">
-                <span class="oi oi-home" aria-hidden="true"></span> Edit
-            </NavLink>
-        </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="/editemployee/2C533E47-19F0-4D73-83C1-1907BBDEFD4E" Match="NavLinkMatch.All" @onclick="@(() => HandleEditEmployee("/editemployee/2C533E47-19F0-4D73-83C1-1907BBDEFD4E"))">
+                        <span class="oi oi-home" aria-hidden="true"></span> Edit
+                    </NavLink>
+                </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/cascading" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Cascading
-            </NavLink>
-        </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="/cascading" Match="NavLinkMatch.All">
+                        <span class="oi oi-home" aria-hidden="true"></span> Cascading
+                    </NavLink>
+                </div>
 
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/identity/account/login" Match="NavLinkMatch.All">
-                <span class="oi oi-lock-locked" aria-hidden="true"></span> Login
-            </NavLink>
-        </div>
-
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/identity/account/logout" Match="NavLinkMatch.All">
-                <span class="oi oi-power-standby" aria-hidden="true"></span> Logout
-            </NavLink>
-        </div>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="/identity/account/logout" Match="NavLinkMatch.All">
+                        <span class="oi oi-power-standby" aria-hidden="true"></span> Logout
+                    </NavLink>
+                </div>
+            </Authorized>
+            <NotAuthorized>
+                <div class="nav-item px-3">
+                    <NavLink class="nav-link" href="/identity/account/login" Match="NavLinkMatch.All">
+                        <span class="oi oi-lock-locked" aria-hidden="true"></span> Login
+                    </NavLink>
+                </div>
+            </NotAuthorized>
+            
+        </AuthorizeView>
 
     </nav>
 </div>
